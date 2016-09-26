@@ -1,0 +1,30 @@
+#!/bin/bash
+MOD=$1
+MCVERSION=$2
+VERSION=$3
+URL=$4
+
+if [ ! -d ./mods ]; then 
+        mkdir ./mods
+fi
+
+cd ./mods
+
+if [ ! -d ./$MOD ]; then 
+        (>&2 echo "$MOD doesn't exist. Use mcmod-add to add the mod first")
+        return 1
+fi
+
+cd ./$MOD
+
+if grep -q $VERSION $MCVERSION; then
+        LINE=$(grep $VERSION $MCVERSION)
+        NL="$VERSION=$URL"
+        REPLACE="s|${LINE}|${NL}|"
+        echo $REPLACE
+        sed -i $REPLACE ./$MCVERSION
+else
+        (>&2 echo "Version $VERSION of $MOD does not exist, use mcmod-add-version")
+fi
+
+

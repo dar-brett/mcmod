@@ -1,0 +1,20 @@
+#!/bin/bash
+MOD=$1
+URL=$2
+DEPENDS=$3
+
+if [ ! -d ./mods ]; then 
+        mkdir ./mods
+fi
+
+cd ./mods
+
+if [ ! -d ./$MOD ]; then 
+        mkdir ./$MOD
+        cd ./$MOD
+else 
+        (>&2 echo "$MOD already exists")
+        return 1
+fi
+
+echo "url=$URL\ndepends=$DEPENDS\n" >> mod-info

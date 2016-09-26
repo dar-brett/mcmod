@@ -1,0 +1,6 @@
+#!/bin/bash
+MOD=$1
+TARGET=$2
+
+CACHE=~/.mcmod/cache
+

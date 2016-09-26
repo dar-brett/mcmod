@@ -1,0 +1,32 @@
+#!/bin/bash
+MOD=$1
+MCVERSION=$2
+VERSION=$3
+URL=$4
+
+if [ ! -d ./mods ]; then 
+        mkdir ./mods
+fi
+
+cd ./mods
+
+if [ ! -d ./$MOD ]; then 
+        (>&2 echo "$MOD doesn't exist. Use mcmod-add to add the mod first")
+        return 1
+fi
+
+cd ./$MOD
+
+if [ ! -f ./$MCVERSION ]; then
+        touch ./$MCVERSION
+fi
+
+if grep -q $VERSION $MCVERSION; then
+        (>&2 echo "Version $VERSION of $MOD already exists, use mcmod-update-version")
+else
+cat >> $MCVERSION << EOF
+$VERSION=$URL
+EOF
+fi
+
+

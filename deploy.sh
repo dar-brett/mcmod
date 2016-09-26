@@ -1,0 +1,1 @@
+scp mcmod-add mcmod-add-version mcmod-update-version dar@192.168.0.242:/var/opt/mcmod/
