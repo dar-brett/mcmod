@@ -1,6 +1,8 @@
 #!/bin/bash
 if [ "$1" = "--help" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-echo Display help
+echo "Gets the url to download a specific version of a mod.
+Usage:
+  mcmod-get-version-url <mod> <minecraft-version> <mod-version>"
 exit 0
 fi 
 
