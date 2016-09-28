@@ -22,4 +22,5 @@ else
         return 1
 fi
 
-echo "url=$URL\ndepends=$DEPENDS\n" >> mod-info
+echo "url=$URL
+depends=$DEPENDS" >> mod-info
