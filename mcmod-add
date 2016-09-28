@@ -1,6 +1,8 @@
 #!/bin/bash
 if [ "$1" = "--help" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-echo Display help
+echo "Adds a mods
+Usage:
+  mcmod-add <mod> <description-url> <csv-dependencies>"
 exit 0
 fi 
 

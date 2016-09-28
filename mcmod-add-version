@@ -1,6 +1,8 @@
 #!/bin/bash
 if [ "$1" = "--help" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-echo Display help
+echo "Adds a version of a mod
+Usage:
+  mcmod-add-version <mod> <minecraft-version> <mod-version> <url>"
 exit 0
 fi 
 

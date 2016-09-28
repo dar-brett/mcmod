@@ -1,6 +1,8 @@
 #!/bin/bash
 if [ "$1" = "--help" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-echo Display help
+echo "Downloads the specified version of a mod if it doesn't already exist
+Usage:
+  mcmod-download <mod> <minecraft-version> <mod-version> <output-directory>"
 exit 0
 fi 
 
