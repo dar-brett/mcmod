@@ -1,6 +1,31 @@
 #!/bin/bash
+if [ "$1" = "--help" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+echo Display help
+exit 0
+fi 
+
 MOD=$1
-TARGET=$2
+MCVERSION=$2
+VERSION=$3
+TARGET=$4
 
-CACHE=~/.mcmod/cache
+URL=$(./mcmod-get-version-url $MOD $MCVERSION $VERSION)
+echo $URL
 
+# Save working directory for later
+WORKINGDIR="$PWD"
+
+if [ ! -d ~/.mcmod ]; then
+        mkdir ~/.mcmod
+fi
+cd ~/.mcmod
+
+if [ ! -d ./cache ]; then
+        mkdir ./cache
+fi
+cd ./cache
+
+
+
+
+echo $WORKINGDIR

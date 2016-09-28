@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ "$1" = "--help" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+echo Display help
+exit 0
+fi 
+
 MOD=$1
 MCVERSION=$2
 VERSION=$3

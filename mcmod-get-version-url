@@ -1,0 +1,24 @@
+#!/bin/bash
+if [ "$1" = "--help" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+echo Display help
+exit 0
+fi 
+
+MOD=$1
+MCVERSION=$2
+VERSION=$3
+
+FILE=./mods/$MOD/$MCVERSION
+
+REGEX="^$VERSION="
+
+LINE=$(grep $REGEX $FILE)
+
+if [[ -z $LINE ]]; then
+        echo "Version $VERSION not found" >&2
+        exit 1
+else
+NUMBER=$(cut -d "=" -f 2 <<< $LINE)
+
+echo $NUMBER
+fi
