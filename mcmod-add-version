@@ -19,7 +19,7 @@ cd ./mods
 
 if [ ! -d ./$MOD ]; then 
         (>&2 echo "$MOD doesn't exist. Use mcmod-add to add the mod first")
-        return 1
+        exit 1
 fi
 
 cd ./$MOD

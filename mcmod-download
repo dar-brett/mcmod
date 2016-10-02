@@ -29,3 +29,5 @@ fi
 FILE="$MOD-$MCVERSION-$VERSION.jar"
 
 cached_download $FILE $URL
+
+echo $FILE

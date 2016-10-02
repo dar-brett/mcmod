@@ -1,0 +1,6 @@
+#!/bin/bash
+MCMODDIR=$(dirname $0)
+source "$MCMODDIR/include/functions.sh"
+
+OUTPUTDIRECTORY=$1
+

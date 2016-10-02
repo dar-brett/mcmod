@@ -8,6 +8,7 @@ mcmod-get-version-url \
 mcmod-server-build \
 mcmod-update-version \
 mcmod-resolve-mods \
+mcmod-client-build-windows \
 mods \
 minecraft-forge \
 include \

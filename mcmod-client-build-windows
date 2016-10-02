@@ -1,0 +1,36 @@
+#!/bin/bash
+MCMODDIR=$(dirname $0)
+source "$MCMODDIR/include/functions.sh"
+
+MCVERSION=$1
+ROOTURL=$2
+
+generate_download() {
+        LINE=$1
+        MOD=$(cut -d "=" -f 1 <<< $LINE)
+        VERSION=$(cut -d "=" -f 2 <<< $LINE)
+        FILE=$(mcmod-download $MOD $MCVERSION $VERSION "mods") 
+        echo bitsadmin.exe /transfer \"$FILE\" \"$ROOTURL/$FILE\" \
+\"%appdata%/mcmod/cache/$FILE\" >> install-modpack.cmd
+        echo copy \"%appdata%/mcmod/cache/$FILE\" \"./mods/$FILE\" >> install-modpack.cmd
+}
+
+if [ -f install-modpack.cmd ]; then 
+        rm install-modpack.cmd
+fi
+
+echo "@echo off" >> install-modpack.cmd
+echo "if not exist %appdata%\mcmod mkdir %appdata%\mcmod" >> install-modpack.cmd
+echo "if not exist ./mods mkdir ./mods" >> install-modpack.cmd
+cat mcmod.modpack | while read LINE
+do
+        generate_download $LINE
+done
+
+FORGEVERSION=$(field_value "forge-version" "mcmod.server")
+FORGE="forge-$FORGEVERSION.jar"
+
+echo bitsadmin.exe /transfer \"$FORGE\" \"$ROOTURL/$FORGE\" \
+\"%appdata%/mcmod/cache/$FORGE\" >> install-modpack.cmd
+echo copy \"%appdata%/mcmod/cache/$FORGE\" \"./$FORGE\" >> install-modpack.cmd
+echo java -jar $FORGE >> install-modpack.cmd
