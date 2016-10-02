@@ -22,12 +22,16 @@ if [ -z "$TARGET" ]; then
 fi
 
 if ! cd $TARGET; then
-        echo Does not Exist
         exit 1
 fi
 
 cd $TARGET
-if [ -f $FILE ]
+
+FILE="$MOD-$MCVERSION-$VERSION.jar"
+if [ -f $FILE ]; then
+        echo "File already exists - nothing to do"
+        exit 0
+fi
 # Logic to download past bot protection on Curse
 if [[ $URL =~ ^https:\/\/mods\.curse\.com\/mc-mods\/minecraft\/ ]]; then
 URL=$(wget -O - -o /dev/null  $URL |  sed ':a:N:$!ba;s/\"/\n/g' \
@@ -36,4 +40,6 @@ echo "Sleeping for 2 seconds to comply with Curse Terms of Service"
 sleep 2
 fi
 
-wget $URL -O "$MOD-$MCVERSION-$VERSION.jar" -nc
+echo "Downloading $URL"
+
+wget $URL -O $FILE -nc
