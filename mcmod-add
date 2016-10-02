@@ -19,10 +19,9 @@ cd ./mods
 if [ ! -d ./$MOD ]; then 
         mkdir ./$MOD
         cd ./$MOD
+        echo "url=$URL
+        depends=$DEPENDS" >> mod-info
 else 
         (>&2 echo "$MOD already exists")
-        return 1
+        exit 1
 fi
-
-echo "url=$URL
-depends=$DEPENDS" >> mod-info

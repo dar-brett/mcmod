@@ -17,12 +17,13 @@ echo $URL
 JAR="forge-$FORGE.jar"
 cached_download $JAR $URL
 
-#java -jar $JAR --installServer nogui
+java -jar $JAR --installServer nogui
 
 SERVERJAR=$(find . -regextype sed -regex "./forge-.*-universal.jar$")
 echo java -jar $SERVERJAR nogui
-#java -jar $SERVERJAR nogui
-
+if [ ! -f eula.txt ]; then
+        java -jar $SERVERJAR nogui
+fi
 sed -i -e 's/eula=false/eula=true/g' eula.txt
 
 mcmod-resolve-mods $VERSION
