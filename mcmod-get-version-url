@@ -5,15 +5,15 @@ Usage:
   mcmod-get-version-url <mod> <minecraft-version> <mod-version>"
 exit 0
 fi 
+MCMODDIR=$(dirname $0)
 
 MOD=$1
 MCVERSION=$2
 VERSION=$3
 
-FILE=./mods/$MOD/$MCVERSION
+FILE=$(readlink -f "$MCMODDIR/mods/$MOD/$MCVERSION")
 
 REGEX="^$VERSION="
-
 LINE=$(grep $REGEX $FILE)
 
 if [[ -z $LINE ]]; then

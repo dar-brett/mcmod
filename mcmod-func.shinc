@@ -1,0 +1,16 @@
+#!/bin/bash
+field_value() {
+        KEY=$1
+        FILE=$2
+
+        REGEX="^$KEY="
+        LINE=$(grep $REGEX $FILE)
+
+        if [[ -z $LINE ]]; then
+                echo "$KEY not found" >&2
+                exit 1
+        fi
+        RESULT=$(cut -d "=" -f 2 <<< $LINE)
+
+        echo $RESULT
+}

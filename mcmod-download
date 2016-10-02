@@ -5,14 +5,15 @@ Usage:
   mcmod-download <mod> <minecraft-version> <mod-version> <output-directory>"
 exit 0
 fi 
+MCMODDIR=$(dirname $0)
+source "$MCMODDIR/include/functions.sh"
 
 MOD=$1
 MCVERSION=$2
 VERSION=$3
 TARGET=$4
 
-URL=$(./mcmod-get-version-url $MOD $MCVERSION $VERSION)
-echo $URL
+URL=$(mcmod-get-version-url $MOD $MCVERSION $VERSION)
 
 # Save working directory for later
 WORKINGDIR="$PWD"
@@ -21,25 +22,10 @@ if [ -z "$TARGET" ]; then
         TARGET=$WORKINGDIR
 fi
 
-if ! cd $TARGET; then
+if ! cd $(readlink -f $TARGET); then
         exit 1
 fi
 
-cd $TARGET
-
 FILE="$MOD-$MCVERSION-$VERSION.jar"
-if [ -f $FILE ]; then
-        echo "File already exists - nothing to do"
-        exit 0
-fi
-# Logic to download past bot protection on Curse
-if [[ $URL =~ ^https:\/\/mods\.curse\.com\/mc-mods\/minecraft\/ ]]; then
-URL=$(wget -O - -o /dev/null  $URL |  sed ':a:N:$!ba;s/\"/\n/g' \
-| grep http://addons.curse.cursecdn.com/)
-echo "Sleeping for 2 seconds to comply with Curse Terms of Service"
-sleep 2
-fi
 
-echo "Downloading $URL"
-
-wget $URL -O $FILE -nc
+cached_download $FILE $URL
